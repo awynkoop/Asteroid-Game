@@ -34,12 +34,16 @@ def main():
             if event.type == pygame.QUIT:
                 return
         
-        
         updateable.update(dt)
         for asteroid in asteroids:
-            if player1.collision(asteroid):
+            if player1.collision(asteroid): #checking player / asteroid collision
                 print("GAME OVER!")
                 quit()
+            for bullet in shots:
+                if bullet.collision(asteroid): #destroying asteroid and bullet for collision
+                    asteroid.kill()
+                    asteroid.split()
+                    bullet.kill()
         
         screen.fill("black")
         
@@ -50,12 +54,6 @@ def main():
         #pauses game loop for 1/60th of a second
         tick =  clock.tick(60)
         dt = tick / 1000
-        
-    
-    #print("Starting Asteroids!")
-    #print(f"Screen width: {SCREEN_WIDTH}")
-    #print(f"Screen height: {SCREEN_HEIGHT}")
-    
 
 if __name__ == "__main__":
     main()
